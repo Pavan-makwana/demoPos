@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ladoo POS",
-  description: "Powered by Drivesync Info Tech Pvt. Ltd.",
+  description: "Powered by Aloxo IR",
 };
 
 export default function RootLayout({
