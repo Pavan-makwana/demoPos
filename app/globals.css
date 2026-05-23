@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Warm cream background for an appetizing cafe feel */
+  --background: #FFFDF7;
+  --foreground: #1A120B;
+
+  /* Golden/Amber for the 'Ladoo' brand */
+  --primary: #F59E0B;
+  --primary-foreground: #FFFFFF;
+
+  /* Soft warm secondary colors */
+  --secondary: #FEF3C7;
+  --secondary-foreground: #92400E;
+
+  /* Clean white cards */
+  --card: #FFFFFF;
+  --card-foreground: #1A120B;
+
+  /* Subtle warm borders */
+  --border: #E8E0D5;
+
+  /* Muted elements */
+  --muted: #F5EFE6;
+  --muted-foreground: #8C7A6B;
+
+  /* Accent color (Deep Orange/Rust) */
+  --accent: #EA580C;
+  --accent-foreground: #FFFFFF;
+
+  /* Sidebar styling */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A120B;
+
+  /* Interactive states */
+  --hover: #F8F4EC;
+  --input: #FFFFFF;
+  --ring: #F59E0B;
+}
+
+.dark {
+  /* Sleek Dark Mode */
+  --background: #121212;
+  --foreground: #E0E0E0;
+
+  /* Accent retains brand identity */
+  --primary: #D97706; /* slightly darker amber */
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #2D2D2D;
+  --secondary-foreground: #E0E0E0;
+
+  --card: #1E1E1E;
+  --card-foreground: #E0E0E0;
+
+  --border: #333333;
+
+  --muted: #262626;
+  --muted-foreground: #999999;
+
+  --accent: #C2410C;
+  --accent-foreground: #FFFFFF;
+
+  --sidebar: #1E1E1E;
+  --sidebar-foreground: #E0E0E0;
+
+  --hover: #262626;
+  --input: #1E1E1E;
+  --ring: #D97706;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-hover: var(--hover);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-right {
+  animation: slideRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Ensure absolute fallback support for responsive layout visibility */
+@media (max-width: 768px) {
+  .md\:flex {
+    display: none !important;
+  }
+}
+@media (min-width: 769px) {
+  .md\:hidden {
+    display: none !important;
+  }
 }
