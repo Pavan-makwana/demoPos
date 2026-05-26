@@ -12,6 +12,7 @@ import { db } from "../../lib/firebase";
 import { MenuItem, InventoryItem } from "../../types/schema";
 import { useCartStore } from "../../lib/store";
 import { useAuth } from "../../lib/AuthContext";
+import { useParams } from "next/navigation";
 import { FiLoader, FiSearch } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 
@@ -83,7 +84,10 @@ export default function MenuGrid() {
 
   const addItem = useCartStore((state) => state.addItem);
   const cart = useCartStore((state) => state.cart);
-  const { tenantId } = useAuth();
+  const params = useParams();
+  const routeTenantId = params?.tenantId as string;
+  const { tenantId: authTenantId } = useAuth();
+  const tenantId = routeTenantId || authTenantId;
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
 
   useEffect(() => {

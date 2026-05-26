@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import MenuGrid from "../../../components/pos/MenuGrid";
 import CartSidebar from "../../../components/pos/CartSidebar";
 import { useCartStore } from "../../../lib/store";
@@ -18,7 +19,10 @@ export default function POSPage() {
   const { cart, setActiveOrder } = useCartStore();
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const { tenantId, user } = useAuth();
+  const params = useParams();
+  const routeTenantId = params?.tenantId as string;
+  const { tenantId: authTenantId, user } = useAuth();
+  const tenantId = routeTenantId || authTenantId;
   const [activeShift, setActiveShift] = useState<any | null>(null);
   const [loadingShift, setLoadingShift] = useState(true);
   const [startingCash, setStartingCash] = useState("");
@@ -109,11 +113,11 @@ export default function POSPage() {
           list.push({ id: doc.id, ...data });
         }
       });
-      // Sort by createdAt descending
+      // Sort by createdAt ascending (first come first served)
       list.sort((a, b) => {
         const aTime = a.createdAt?.seconds || 0;
         const bTime = b.createdAt?.seconds || 0;
-        return bTime - aTime;
+        return aTime - bTime;
       });
       setPendingPayments(list);
     });

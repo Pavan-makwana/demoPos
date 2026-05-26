@@ -16,6 +16,7 @@ import { FiUsers, FiClock, FiCheckCircle } from "react-icons/fi";
 import { RiShoppingBag3Line } from "react-icons/ri"; // <-- NEW IMPORT
 import { useCartStore } from "../../lib/store";
 import { useAuth } from "../../lib/AuthContext";
+import { useParams } from "next/navigation";
 
 interface TableSelectorModalProps {
   isOpen: boolean;
@@ -39,7 +40,10 @@ export default function TableSelectorModal({
   const [selectedBlueTable, setSelectedBlueTable] = useState<any | null>(null);
 
   const { setTableNumber, setActiveOrder } = useCartStore();
-  const { tenantId } = useAuth();
+  const params = useParams();
+  const routeTenantId = params?.tenantId as string;
+  const { tenantId: authTenantId } = useAuth();
+  const tenantId = routeTenantId || authTenantId;
 
   useEffect(() => {
     if (!isOpen || !tenantId) return;

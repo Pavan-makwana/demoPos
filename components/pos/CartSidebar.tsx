@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useParams } from "next/navigation";
 import { useCartStore } from "../../lib/store";
 import { processCheckout, saveRunningTab } from "../../lib/actions";
 import { useAuth } from "../../lib/AuthContext";
@@ -45,7 +46,10 @@ export default function CartSidebar({
   const setIsCheckoutModalOpen = setIsCheckoutOpen !== undefined ? setIsCheckoutOpen : setLocalCheckoutOpen;
 
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
-  const { tenantId } = useAuth();
+  const params = useParams();
+  const routeTenantId = params?.tenantId as string;
+  const { tenantId: authTenantId } = useAuth();
+  const tenantId = routeTenantId || authTenantId;
 
   // Sends to kitchen without taking payment (Running Tab)
   const handleSendToKitchen = async () => {
